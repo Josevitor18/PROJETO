@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cadastro de Alunos</title>
+  <link rel="stylesheet" href="projeto.css">
+</head>
+<body>
+  <div id="form">
+    <h1 class="title">Cadastro de Alunos</h1>
+
+    <form id="cadastroForm" class="form-center">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" required>
+
+      <label for="matricula">Matrícula:</label>
+      <input type="text" id="matricula" required>
+      
+      <div id="btn">
+        <button id="botao" type="submit">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="lista">
+    <h2>Listagem de Alunos</h2>
+    <ul id="alunosList" class ="cor-branca"></ul>
+  </div>
+  
+
+
+
+
+  <script>
+    // Classe Aluno
+    class Aluno {
+      constructor(nome, matricula) {
+        this.nome = nome;
+        this.matricula = matricula;
+      }
+    }
+
+    // Vetor para armazenar os alunos cadastrados
+    const alunos = [];
+
+    // Função para cadastrar um novo aluno
+    function cadastrarAluno(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const matricula = document.getElementById('matricula').value;
+
+      const aluno = new Aluno(nome, matricula);
+      alunos.push(aluno);
+
+      exibirAlunos();
+      limparFormulario();
+    }
+
+    // Função para exibir os alunos cadastrados na lista
+    function exibirAlunos() {
+      const alunosList = document.getElementById('alunosList');
+      alunosList.innerHTML = '';
+      
+
+      alunos.forEach((aluno, indice) => {
+        const li = document.createElement('li');
+        li.textContent = `${aluno.nome} - Matrícula: ${aluno.matricula}`;
+        const numeroMatricula = indice + 1;
+        li.textContent = `${numeroMatricula}-${aluno.nome} - Matrícula: ${aluno.matricula}`;
+        alunosList.appendChild(li);
+
+      });
+    }
+
+    // Função para limpar o formulário após o cadastro
+    function limparFormulario() {
+      document.getElementById('nome').value = '';
+      document.getElementById('matricula').value = '';
+    }
+
+    // Evento de submissão do formulário de cadastro
+    const cadastroForm = document.getElementById('cadastroForm');
+    cadastroForm.addEventListener('submit', cadastrarAluno);
+  </script>
+</body>
+</html>
